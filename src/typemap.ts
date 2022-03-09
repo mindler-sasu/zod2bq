@@ -5,4 +5,5 @@ export const typeMap = {
     return def.isInt ? "INTEGER" : "NUMERIC";
   },
   ZodObject: (_) => "RECORD",
+  ZodDate: (_) => "TIMESTAMP",
 };

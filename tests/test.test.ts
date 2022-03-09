@@ -193,4 +193,33 @@ describe("test bq", () => {
       },
     ]);
   });
+  it("should map date to timestamp", () => {
+    const zodSchema = z.object({
+      birthday: z.date(),
+    });
+    const bq = inferBQ(zodSchema);
+    expect(bq).toEqual([
+      {
+        name: "birthday",
+        type: "TIMESTAMP",
+        mode: "REQUIRED",
+      },
+    ]);
+  });
+  it("should map datestrings to timestamp", () => {
+    const dateSchema = z.preprocess((arg) => {
+      if (typeof arg == "string" || arg instanceof Date) return new Date(arg);
+    }, z.date());
+    const zodSchema = z.object({
+      birthday: dateSchema,
+    });
+    const bq = inferBQ(zodSchema);
+    expect(bq).toEqual([
+      {
+        name: "birthday",
+        type: "TIMESTAMP",
+        mode: "REQUIRED",
+      },
+    ]);
+  });
 });

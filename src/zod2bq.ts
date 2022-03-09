@@ -36,6 +36,9 @@ const _parse = (
 
       return BQBaseNumber;
     }
+    case "ZodDate": {
+      return leafValue(zObj, key, typeName, props);
+    }
     case "ZodNullable":
     case "ZodOptional": {
       return _parse(zObj._def.innerType, key, {
@@ -45,7 +48,6 @@ const _parse = (
     }
     case "ZodArray": {
       const innerZod = zObj._def.type;
-      console.log(innerZod);
       if (innerZod._def.typeName === "ZodObject") {
         if (!key) {
           return Object.entries(innerZod.shape).map(([key, zObj]) =>
@@ -82,6 +84,9 @@ const _parse = (
           _parse(zObj, key)
         ) as unknown as BigQueryTableField[],
       };
+    }
+    case "ZodEffects": {
+      return _parse(zObj._def.schema, key, props);
     }
     default: {
       throw Error(`${typeName} PARSING NOT SUPPORTED`);
