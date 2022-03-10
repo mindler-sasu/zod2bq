@@ -9,5 +9,5 @@ import { z } from "zod"
 const zodSchema = z.object({
       beers: z.array(z.object({ name: z.string() })),
     });
-  const bigquerySchema = zod2bq(zodSchema);
+const bigquerySchema = zod2bq(zodSchema);
 ```
