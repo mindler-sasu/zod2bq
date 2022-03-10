@@ -11,3 +11,10 @@ const zodSchema = z.object({
     });
 const bigquerySchema = zod2bq(zodSchema);
 ```
+
+You can write to JSON file with
+
+```
+const file = "./testBigQuerySchema.json"
+const bigquerySchema = zod2bq(zodSchema, file);
+```

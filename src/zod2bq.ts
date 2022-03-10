@@ -1,5 +1,7 @@
 import { typeMap } from "./typemap";
 import { ParseProps, BigQueryTableField } from "./types";
+import fs from "fs";
+import * as path from "path";
 
 const leafValue = (
   zObj,
@@ -96,6 +98,14 @@ const _parse = (
   }
 };
 
-export const inferBQ = (zObj) => {
-  return _parse(zObj);
+export const inferBQ = (zObj, toFile?: string) => {
+  const parsed = _parse(zObj);
+  if (toFile) {
+    fs.writeFileSync(
+      path.join(__dirname, toFile),
+      JSON.stringify(parsed, null, 2),
+      "utf-8"
+    );
+  }
+  return parsed;
 };
