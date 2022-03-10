@@ -25,6 +25,9 @@ const _parse = (
     case "ZodString": {
       return leafValue(zObj, key, typeName, props);
     }
+    case "ZodBoolean": {
+      return leafValue(zObj, key, typeName, props);
+    }
     case "ZodNumber": {
       const BQBaseNumber = leafValue(zObj, key, typeName, props);
       if (BQBaseNumber.type === "NUMERIC")
@@ -63,7 +66,6 @@ const _parse = (
           ) as unknown as BigQueryTableField[],
         };
       }
-      console.log(innerZod);
       return {
         name: key,
         type: typeMap[innerZod._def.typeName](zObj),

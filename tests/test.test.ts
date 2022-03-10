@@ -222,4 +222,17 @@ describe("test bq", () => {
       },
     ]);
   });
+  it("should map booleans to booleans", () => {
+    const zodSchema = z.object({
+      is10xEngineer: z.boolean(),
+    });
+    const bq = inferBQ(zodSchema);
+    expect(bq).toEqual([
+      {
+        name: "is10xEngineer",
+        type: "BOOLEAN",
+        mode: "REQUIRED",
+      },
+    ]);
+  });
 });
