@@ -1,7 +1,10 @@
+import { MegaZod } from "./types";
+
 export const typeMap = {
-  ZodString: (_) => "STRING",
-  ZodNumber: (def, props?) => (def.isInt ? "INTEGER" : "NUMERIC"),
-  ZodObject: (_) => "RECORD",
-  ZodDate: (_) => "TIMESTAMP",
-  ZodBoolean: () => "BOOLEAN",
+  ZodString: (_: MegaZod): "STRING" => "STRING",
+  ZodNumber: (def: MegaZod): "INTEGER" | "NUMERIC" =>
+    "isInt" in def && def.isInt ? "INTEGER" : "NUMERIC",
+  ZodObject: (_: MegaZod): "RECORD" => "RECORD",
+  ZodDate: (_: MegaZod): "TIMESTAMP" => "TIMESTAMP",
+  ZodBoolean: (): "BOOLEAN" => "BOOLEAN",
 };

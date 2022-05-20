@@ -1,4 +1,15 @@
 import { TableMetadata, TableField } from "@google-cloud/bigquery";
+import {
+  SomeZodObject,
+  ZodString,
+  ZodBoolean,
+  ZodNumber,
+  ZodDate,
+  ZodOptional,
+  ZodArray,
+  ZodEffects,
+  ZodNullable,
+} from "zod";
 type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
 
 export type ParseProps = {
@@ -32,3 +43,14 @@ export type BigQueryTableField = Overwrite<
     mode: BigQueryModeType;
   }
 >;
+
+export type MegaZod =
+  | SomeZodObject
+  | ZodString
+  | ZodBoolean
+  | ZodNumber
+  | ZodDate
+  | ZodOptional<SomeZodObject>
+  | ZodArray<SomeZodObject | ZodString | ZodBoolean | ZodNumber | ZodDate>
+  | ZodEffects<SomeZodObject>
+  | ZodNullable<SomeZodObject>;
